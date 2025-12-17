@@ -1,0 +1,3 @@
+data_tests:
+  - name: fct_orders_discount
+    description: Test to ensure no orders have negative discounted amounts
