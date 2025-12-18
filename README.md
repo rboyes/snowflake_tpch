@@ -1,18 +1,19 @@
-Basic project to ingest tpch data from snowflake and create a data mart
+Basic project to ingest tpch data from snowflake and create a data mart.
 
-Run the following commands:
+You will need a working dbt command line with snowflake. I set that up in a virtual environment in python:
+
+```bash
+python -m venv .venv --prompt dbt
+source .venv/bin/activate
+pip install -r requirements.txt
+
+Create a profile called snowflake_tpch in `~/.dbt/profiles.yml` that grants you access to snowflake.
+
+Run the following commands to test it out:
 - dbt deps
 - dbt compile
 - dbt debug
 - dbt run
 - dbt test
 - dbt build
-- dbt debug
 - dbt source freshness
-
-### Resources:
-- Learn more about dbt [in the docs](https://docs.getdbt.com/docs/introduction)
-- Check out [Discourse](https://discourse.getdbt.com/) for commonly asked questions and answers
-- Join the [chat](https://community.getdbt.com/) on Slack for live discussions and support
-- Find [dbt events](https://events.getdbt.com) near you
-- Check out [the blog](https://blog.getdbt.com/) for the latest news on dbt's development and best practices
