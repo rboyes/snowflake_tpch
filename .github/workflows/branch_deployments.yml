@@ -9,6 +9,7 @@ concurrency:
   cancel-in-progress: true
 env:
   DAGSTER_CLOUD_ORGANIZATION: "richboyes-snowflake-tpch"
+  DAGSTER_CLOUD_URL: "http://richboyes-snowflake-tpch.dagster.cloud"  
   DAGSTER_CLOUD_API_TOKEN: ${{ secrets.DAGSTER_CLOUD_API_TOKEN }}
   ENABLE_FAST_DEPLOYS: 'true'
   PYTHON_VERSION: '3.10'
