@@ -1,0 +1,13 @@
+snowflake_tpch:
+  outputs:
+    dev:
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
+      database: dbt_db
+      user: "{{ env_var('SNOWFLAKE_USER') }}"      
+      password: "{{ env_var('SNOWFLAKE_PASSWORD') }}"
+      role: dbt_role
+      schema: dbt_schema
+      threads: 5
+      type: snowflake
+      warehouse: dbt_wh
+  target: dev
