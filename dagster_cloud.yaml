@@ -1,0 +1,6 @@
+locations:
+- build:
+    directory: ./snowflake_tpch
+  code_source:
+    module_name: snowflake_tpch.definitions
+  location_name: snowflake_tpch
