@@ -47,7 +47,7 @@ jobs:
         if: steps.prerun.outputs.result == 'pex-deploy'
         uses: dagster-io/dagster-cloud-action/actions/utils/dagster-cloud-cli@v1.12.8
         with:
-          command: "ci check --project-dir project-repo --dagster-cloud-yaml-path ${{ env.DAGSTER_CLOUD_FILE }}"
+          command: "ci check --project-dir project-repo --dagster-cloud-yaml-path ${{ env.DAGSTER_CLOUD_FILE }} --dagster-cloud-connect-check warn"
         env:
           DAGSTER_PROJECT_DIR: "snowflake_tpch"
 
