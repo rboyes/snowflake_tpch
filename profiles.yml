@@ -6,7 +6,7 @@ snowflake_tpch:
       user: "{{ env_var('SNOWFLAKE_USER') }}"      
       password: "{{ env_var('SNOWFLAKE_PASSWORD') }}"
       role: dbt_role
-      schema: dbt_schema
+      schema: "{{ env_var('DBT_SCHEMA', 'dbt_schema') }}"
       threads: 5
       type: snowflake
       warehouse: dbt_wh
