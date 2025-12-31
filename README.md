@@ -16,13 +16,10 @@ Pre-requisites:
   ```
 - Install uv using their [official documentation](https://docs.astral.sh/uv/getting-started/installation/)
 
-Assumes you already have a snowflake instance.
-
 To run locally, do the following in the project root:
 
-- Create a virtual environment: `uv venv`
-- Use the virtual environment: `source .venv/bin/activate`
-- Install dependencies: `uv pip install -e "snowflake_tpch[dev]"`
+- Synchronise the virtural environment: `uv sync --project snowflake_tpch --extra dev`
+- Use the virtual environment: `source snowflake_tpch/.venv/bin/activate`
 - Create the following environment variables:
   ```bash
   export DBT_PROJECT_DIR=./dbt
