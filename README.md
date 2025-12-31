@@ -18,8 +18,14 @@ Pre-requisites:
 
 To run locally, do the following in the project root:
 
-- Synchronise the virtural environment: `uv sync --project snowflake_tpch --extra dev`
-- Use the virtual environment: `source snowflake_tpch/.venv/bin/activate`
+- Synchronise the virtural environment: 
+  ```bash
+  uv sync --project snowflake_tpch --extra dev
+  ```
+- Use the virtual environment:
+  ```bash
+  source snowflake_tpch/.venv/bin/activate
+  ```
 - Create the following environment variables:
   ```bash
   export DBT_PROJECT_DIR=./dbt
@@ -32,7 +38,10 @@ To run locally, do the following in the project root:
   ```bash
   dagster-dbt project prepare-and-package --file snowflake_tpch/snowflake_tpch/project.py
   ```
-- Run the webserver: `dagster dev -m snowflake_tpch.definitions`
+- Run the webserver:
+  ```bash
+  dagster dev -m snowflake_tpch.definitions
+  ```
 
 ### Dagster Cloud
 
