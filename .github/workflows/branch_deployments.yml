@@ -69,6 +69,7 @@ jobs:
         # --upgrade-strategy eager picks up newer packages that are required for things to work
         run: |
           curl -LsSf https://astral.sh/uv/install.sh | sh
+          cd project-repo/${{ env.DAGSTER_PROJECT_NAME }}
           uv sync
           source .venv/bin/activate
           dagster-dbt project prepare-and-package --file ${{ env.DAGSTER_PROJECT_NAME }}/project.py
