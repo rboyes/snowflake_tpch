@@ -43,6 +43,21 @@ To run locally, do the following in the project root:
   dagster dev -m snowflake_tpch.definitions
   ```
 
+To run unit tests:
+
+- Synchronise the virtural environment: 
+  ```bash
+  uv sync --project snowflake_tpch --extra dev
+  ```
+- Use the virtual environment:
+  ```bash
+  source snowflake_tpch/.venv/bin/activate
+  ```
+- Run the unit tests:
+  ```bash
+  pytest snowflake_tpch/tests
+  ```
+  
 ### Dagster Cloud
 
 See github actions under https://github.com/rboyes/snowflake_tpch for deployment to Dagster cloud.
