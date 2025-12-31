@@ -1,6 +1,6 @@
-## Dagster/DBT TPCH Snowflake Project
+## Dagster/DBT TPCH Snowflake ❄️ Project 
 
-Basic project to ingest tpch data from snowflake and create a data mart using Dagster & DBT. See: https://github.com/rboyes/snowflake_tpch
+Basic project to ingest tpch data from snowflake and create a data mart using Dagster & DBT. See: https://github.com/rboyes/snowflake_tpch 
 
 Pre-requisites:
 - A working snowflake instance with admin access with the following:
