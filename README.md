@@ -18,7 +18,7 @@ Pre-requisites:
   ```
 - Install uv using their [official documentation](https://docs.astral.sh/uv/getting-started/installation/)
 
-To run locally, do the following in the project root:
+To run Dagster locally, do the following in the project root:
 
 - Synchronise the virtural environment: 
   ```bash
@@ -59,7 +59,18 @@ To run unit tests:
   ```bash
   pytest snowflake_tpch/tests
   ```
-  
+
 ### Dagster Cloud
 
 See github actions under https://github.com/rboyes/snowflake_tpch for deployment to Dagster cloud.
+
+### Running DBT Locally
+
+You may wish to run DBT locally, which will execute the DAG on Snowflake:
+```bash
+uv sync --project snowflake_tpch --extra dev
+source ./snowflake_tpch/.venv/bin/activate
+cd ./dbt
+dbt deps
+dbt build
+```
