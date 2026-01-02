@@ -4,3 +4,6 @@ dbt_packages/
 logs/
 .venv/
 __pycache__/
+snowflake_tpch.egg-info/
+.user.yml
+pytest-report.xml
