@@ -102,7 +102,7 @@ jobs:
           name: pytest
           working-directory: project-repo/${{ env.DAGSTER_PROJECT_NAME }}
           path: pytest-report.xml
-          reporter: java-unit
+          reporter: python-xunit
 
       - name: Python Executable Deploy
         if: steps.prerun.outputs.result == 'pex-deploy'
