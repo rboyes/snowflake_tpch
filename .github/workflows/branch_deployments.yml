@@ -73,7 +73,7 @@ jobs:
         run: |
           curl -LsSf https://astral.sh/uv/install.sh | sh
           cd project-repo/${{ env.DAGSTER_PROJECT_NAME }}
-          uv sync
+          uv sync --extra dev
         shell: bash
 
       - name: Run pytest
