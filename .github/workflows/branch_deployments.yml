@@ -76,10 +76,20 @@ jobs:
           uv sync --extra dev
         shell: bash
 
+      - name: Prepare DBT project for deployment
+        if: steps.prerun.outputs.result == 'pex-deploy'
+        # --upgrade-strategy eager picks up newer packages that are required for things to work
+        run: |
+          cd project-repo/${{ env.DAGSTER_PROJECT_NAME }}
+          source .venv/bin/activate
+          dagster-dbt project prepare-and-package --file ${{ env.DAGSTER_PROJECT_NAME }}/project.py
+          # The cli command below can be used to manage syncing the prod manifest to branches if state_path is set on the DbtProject
+          # dagster-cloud ci dagster-dbt project manage-state --file ${{ env.DAGSTER_PROJECT_NAME }}/project.py
+        shell: bash
+
       - name: Run pytest
         if: steps.prerun.outputs.result == 'pex-deploy'
         run: |
-          pwd
           cd project-repo/${{ env.DAGSTER_PROJECT_NAME }}
           source .venv/bin/activate
           pytest -q --junitxml=pytest-report.xml
@@ -93,17 +103,6 @@ jobs:
           working-directory: project-repo/${{ env.DAGSTER_PROJECT_NAME }}
           path: pytest-report.xml
           reporter: junit
-
-      - name: Prepare DBT project for deployment
-        if: steps.prerun.outputs.result == 'pex-deploy'
-        # --upgrade-strategy eager picks up newer packages that are required for things to work
-        run: |
-          cd project-repo/${{ env.DAGSTER_PROJECT_NAME }}
-          source .venv/bin/activate
-          dagster-dbt project prepare-and-package --file ${{ env.DAGSTER_PROJECT_NAME }}/project.py
-          # The cli command below can be used to manage syncing the prod manifest to branches if state_path is set on the DbtProject
-          # dagster-cloud ci dagster-dbt project manage-state --file ${{ env.DAGSTER_PROJECT_NAME }}/project.py
-        shell: bash
 
       - name: Python Executable Deploy
         if: steps.prerun.outputs.result == 'pex-deploy'
