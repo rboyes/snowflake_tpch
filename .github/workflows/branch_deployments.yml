@@ -87,6 +87,7 @@ jobs:
       - name: Publish pytest results
         if: always() && steps.prerun.outputs.result == 'pex-deploy'
         uses: dorny/test-reporter@v1
+        working-directory: project-repo
         with:
           name: pytest
           path: project-repo/${{ env.DAGSTER_PROJECT_NAME }}/pytest-report.xml
