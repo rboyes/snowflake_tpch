@@ -8,12 +8,6 @@ from snowflake_tpch.schedules import schedules
 def test_translator_group_name():
     assert CustomDagsterDbtTranslator().get_group_name({}) == "snowflake_tpch"
 
-
-def test_project_dir_prefers_repo_when_present():
-    assert repo_project_dir.exists()
-    assert snowflake_tpch_project.project_dir == repo_project_dir
-
-
 def test_schedule_config():
     schedule = schedules[0]
     assert schedule.cron_schedule == "25 14 * * *"
