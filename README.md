@@ -1,5 +1,7 @@
 ## Dagster/DBT TPCH Snowflake ❄️ Project 
 
+[![Serverless Prod Deployment](https://github.com/rboyes/snowflake_tpch/actions/workflows/deploy.yml/badge.svg)](https://github.com/rboyes/snowflake_tpch/actions/workflows/deploy.yml)
+
 Basic project to ingest tpch data from snowflake and create a data mart using Dagster & DBT. See: https://github.com/rboyes/snowflake_tpch 
 
 Pre-requisites:
