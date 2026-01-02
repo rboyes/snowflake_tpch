@@ -62,7 +62,8 @@ To run unit tests:
 
 ### Dagster Cloud
 
-See github actions under https://github.com/rboyes/snowflake_tpch for deployment to Dagster cloud.
+See github actions under https://github.com/rboyes/snowflake_tpch for deployment to Dagster cloud, also see [deploy.yml](.github/workflows/deploy.yml).
+
 
 ### Running DBT Locally
 
