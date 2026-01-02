@@ -5,6 +5,10 @@ on:
       - "main"
       - "master"
 
+permissions:
+  checks: write
+  contents: read
+
 concurrency:
   # Cancel in-progress deploys to same branch
   group: ${{ github.ref }}/deploy
@@ -64,18 +68,41 @@ jobs:
           dagster_cloud_yaml_path: ${{ env.DAGSTER_CLOUD_FILE }}
           deployment: 'prod'
 
+      - name: Install dependencies
+        if: steps.prerun.outputs.result == 'pex-deploy'
+        run: |
+          curl -LsSf https://astral.sh/uv/install.sh | sh
+          cd project-repo/${{ env.DAGSTER_PROJECT_NAME }}
+          uv sync --extra dev
+        shell: bash
+
       - name: Prepare DBT project for deployment
         if: steps.prerun.outputs.result == 'pex-deploy'
         # --upgrade-strategy eager picks up newer packages that are required for things to work
         run: |
-          curl -LsSf https://astral.sh/uv/install.sh | sh
           cd project-repo/${{ env.DAGSTER_PROJECT_NAME }}
-          uv sync
           source .venv/bin/activate
           dagster-dbt project prepare-and-package --file ${{ env.DAGSTER_PROJECT_NAME }}/project.py
           # The cli command below can be used to manage syncing the prod manifest to branches if state_path is set on the DbtProject
           # dagster-cloud ci dagster-dbt project manage-state --file ${{ env.DAGSTER_PROJECT_NAME }}/project.py
         shell: bash
+
+      - name: Run pytest
+        if: steps.prerun.outputs.result == 'pex-deploy'
+        run: |
+          cd project-repo/${{ env.DAGSTER_PROJECT_NAME }}
+          source .venv/bin/activate
+          pytest -q --junitxml=pytest-report.xml
+        shell: bash
+
+      - name: Publish pytest results
+        if: always() && steps.prerun.outputs.result == 'pex-deploy'
+        uses: dorny/test-reporter@v2
+        with:
+          name: pytest
+          working-directory: project-repo/${{ env.DAGSTER_PROJECT_NAME }}
+          path: pytest-report.xml
+          reporter: python-xunit
 
       - name: Python Executable Deploy
         if: steps.prerun.outputs.result == 'pex-deploy'
