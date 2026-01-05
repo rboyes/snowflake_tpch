@@ -8,15 +8,16 @@ snowflake_tpch:
       role: dbt_role
       warehouse: dbt_wh
       database: dbt_db
-      schema: >
-        {% set deployment = env_var('DAGSTER_CLOUD_DEPLOYMENT_NAME', 'main') %}
-        {% if deployment == 'main' %}
-          dbt_schema
-        {% else %}
-          s_{{ deployment
-              | lower
-              | replace('-', '_')
-              | replace('/', '_') }}
-        {% endif %}
+      schema: dev
       threads: 5
-  target: dev
+    prod:
+      type: snowflake
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
+      user: "{{ env_var('SNOWFLAKE_USER') }}"
+      password: "{{ env_var('SNOWFLAKE_PASSWORD') }}"
+      role: dbt_role
+      warehouse: dbt_wh
+      database: dbt_db
+      schema: prod
+      threads: 5
+  target: "{{ env_var('DBT_TARGET', 'dev') }}"
