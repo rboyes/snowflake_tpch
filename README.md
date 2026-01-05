@@ -20,13 +20,13 @@ Pre-requisites:
 
 To run Dagster locally, do the following in the project root:
 
-- Synchronise the virtural environment: 
+- Synchronise the virtual environment: 
   ```bash
-  uv sync --project snowflake_tpch --extra dev
+  uv sync --extra dev
   ```
 - Use the virtual environment:
   ```bash
-  source snowflake_tpch/.venv/bin/activate
+  source .venv/bin/activate
   ```
 - Create the following environment variables:
   ```bash
@@ -38,7 +38,7 @@ To run Dagster locally, do the following in the project root:
   ```
 - Scaffold the project:
   ```bash
-  dagster-dbt project prepare-and-package --file snowflake_tpch/snowflake_tpch/project.py
+  dagster-dbt project prepare-and-package --file src/snowflake_tpch/project.py
   ```
 - Run the webserver:
   ```bash
@@ -49,15 +49,15 @@ To run unit tests:
 
 - Synchronise the virtural environment: 
   ```bash
-  uv sync --project snowflake_tpch --extra dev
+  uv sync --extra dev
   ```
 - Use the virtual environment:
   ```bash
-  source snowflake_tpch/.venv/bin/activate
+  source .venv/bin/activate
   ```
 - Run the unit tests:
   ```bash
-  pytest snowflake_tpch/tests
+  pytest tests
   ```
 
 ### Dagster Cloud
@@ -69,8 +69,8 @@ See github actions under https://github.com/rboyes/snowflake_tpch for deployment
 
 You may wish to run DBT locally, which will execute the DAG on Snowflake:
 ```bash
-uv sync --project snowflake_tpch --extra dev
-source ./snowflake_tpch/.venv/bin/activate
+uv sync --extra dev
+source ./.venv/bin/activate
 cd ./dbt
 dbt deps
 dbt build

@@ -3,7 +3,7 @@ from pathlib import Path
 from dagster_dbt import DbtProject
 
 repo_project_dir = Path(__file__).joinpath("..", "..", "..", "dbt").resolve()
-packaged_project_dir = Path(__file__).joinpath("..", "dbt-project").resolve()
+packaged_project_dir = Path(__file__).joinpath("..", "..", "..", "dbt-project").resolve()
 
 snowflake_tpch_project = DbtProject(
     project_dir=repo_project_dir if repo_project_dir.exists() else packaged_project_dir,
