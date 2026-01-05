@@ -20,4 +20,4 @@ snowflake_tpch:
       database: dbt_db
       schema: prod
       threads: 5
-  target: "{{ env_var('DBT_TARGET', 'dev') }}"
+  target: dev
