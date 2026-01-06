@@ -12,7 +12,11 @@ Pre-requisites:
   create database if not exists dbt_db;
   create role if not exists dbt_role;
   grant usage on warehouse dbt_wh to role dbt_role;
-  grant role dbt_role to user rich;
+  create user if not exists dbt_user
+    rsa_public_key = 'REPLACE_WITH_RSA_PUBLIC_KEY'
+    default_role = dbt_role
+    default_warehouse = dbt_wh;
+  grant role dbt_role to user dbt_user;
   grant all on database dbt_db to role dbt_role;
   ```
 - Install uv using their [official documentation](https://docs.astral.sh/uv/getting-started/installation/)
@@ -32,8 +36,8 @@ To run Dagster locally, do the following in the project root:
 - Create the following environment variables:
   ```bash
   export SNOWFLAKE_ACCOUNT=XXXXXX-YYYYYY
-  export SNOWFLAKE_USER=rich
-  export SNOWFLAKE_PASSWORD=XXXX
+  export SNOWFLAKE_USER=dbt_user
+  export SNOWFLAKE_PRIVATE_KEY=$(cat /path/to/rsa_key.private)
   ```
 - Scaffold the project:
   ```bash
