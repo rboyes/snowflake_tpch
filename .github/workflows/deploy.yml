@@ -24,7 +24,6 @@ env:
   ENABLE_FAST_DEPLOYS: 'true'
   PYTHON_VERSION: '3.10'
   DAGSTER_CLOUD_FILE: 'dagster_cloud.yaml'
-  DAGSTER_PROJECT_NAME: "snowflake_tpch"
   DBT_TARGET: prod
 
 jobs:
@@ -73,7 +72,7 @@ jobs:
         if: steps.prerun.outputs.result == 'pex-deploy'
         run: |
           curl -LsSf https://astral.sh/uv/install.sh | sh
-          cd project-repo/${{ env.DAGSTER_PROJECT_NAME }}
+          cd project-repo
           uv sync --extra dev
         shell: bash
 
@@ -81,19 +80,19 @@ jobs:
         if: steps.prerun.outputs.result == 'pex-deploy'
         # --upgrade-strategy eager picks up newer packages that are required for things to work
         run: |
-          cd project-repo/${{ env.DAGSTER_PROJECT_NAME }}
+          cd project-repo
           source .venv/bin/activate
-          dagster-dbt project prepare-and-package --file ${{ env.DAGSTER_PROJECT_NAME }}/project.py
+          dagster-dbt project prepare-and-package --file src/snowflake_tpch/project.py
           # The cli command below can be used to manage syncing the prod manifest to branches if state_path is set on the DbtProject
-          # dagster-cloud ci dagster-dbt project manage-state --file ${{ env.DAGSTER_PROJECT_NAME }}/project.py
+          # dagster-cloud ci dagster-dbt project manage-state --file src/snowflake_tpch/project.py
         shell: bash
 
       - name: Run pytest
         if: steps.prerun.outputs.result == 'pex-deploy'
         run: |
-          cd project-repo/${{ env.DAGSTER_PROJECT_NAME }}
+          cd project-repo
           source .venv/bin/activate
-          pytest -q --junitxml=pytest-report.xml
+          pytest -q --junitxml=pytest-report.xml tests
         shell: bash
 
       - name: Publish pytest results
@@ -101,7 +100,7 @@ jobs:
         uses: dorny/test-reporter@v2
         with:
           name: pytest
-          working-directory: project-repo/${{ env.DAGSTER_PROJECT_NAME }}
+          working-directory: project-repo
           path: pytest-report.xml
           reporter: python-xunit
 
