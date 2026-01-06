@@ -7,3 +7,4 @@ __pycache__/
 snowflake_tpch.egg-info/
 .user.yml
 pytest-report.xml
+dbt-project/
