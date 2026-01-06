@@ -4,20 +4,20 @@ snowflake_tpch:
       type: snowflake
       account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
       user: "{{ env_var('SNOWFLAKE_USER') }}"
-      password: "{{ env_var('SNOWFLAKE_PASSWORD') }}"
+      private_key: "{{ env_var('SNOWFLAKE_PRIVATE_KEY') }}"
       role: dbt_role
       warehouse: dbt_wh
       database: dbt_db
       schema: dev
-      threads: 5
+      threads: 1
     prod:
       type: snowflake
       account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
       user: "{{ env_var('SNOWFLAKE_USER') }}"
-      password: "{{ env_var('SNOWFLAKE_PASSWORD') }}"
+      private_key: "{{ env_var('SNOWFLAKE_PRIVATE_KEY') }}"
       role: dbt_role
       warehouse: dbt_wh
       database: dbt_db
       schema: prod
-      threads: 5
+      threads: 1
   target: dev
