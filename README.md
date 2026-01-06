@@ -4,7 +4,9 @@
 
 Basic project to ingest tpch data from snowflake and create a data mart using Dagster & DBT. See: https://github.com/rboyes/snowflake_tpch 
 
-Pre-requisites:
+
+### Pre-requisites
+
 - A working snowflake instance with admin access to do the following:
   ```sql
   use role accountadmin;
@@ -20,11 +22,6 @@ Pre-requisites:
   grant all on database dbt_db to role dbt_role;
   ```
 - Install uv using their [official documentation](https://docs.astral.sh/uv/getting-started/installation/)
-
-### Running Dagster locally
-
-To run Dagster locally, do the following in the project root:
-
 - Synchronise the virtual environment: 
   ```bash
   uv sync --extra dev
@@ -39,6 +36,9 @@ To run Dagster locally, do the following in the project root:
   export SNOWFLAKE_USER=dbt_user
   export SNOWFLAKE_PRIVATE_KEY=$(cat /path/to/rsa_key.private)
   ```
+
+### Running Dagster locally
+
 - Scaffold the project:
   ```bash
   dagster-dbt project prepare-and-package --file src/snowflake_tpch/project.py
@@ -48,9 +48,9 @@ To run Dagster locally, do the following in the project root:
   dagster dev -m snowflake_tpch.definitions
   ```
 
-To run unit tests:
+### Running the unit tests
 
-- Synchronise the virtural environment: 
+- Synchronise the virtual environment: 
   ```bash
   uv sync --extra dev
   ```
@@ -65,12 +65,12 @@ To run unit tests:
 
 ### Dagster Cloud
 
-See github actions under https://github.com/rboyes/snowflake_tpch for deployment to Dagster cloud, also see [deploy.yml](.github/workflows/deploy.yml).
+See github actions under https://github.com/rboyes/snowflake_tpch/actions for deployment to Dagster cloud, also see [deploy.yml](.github/workflows/deploy.yml).
 
 
 ### Running DBT Locally
 
-You may wish to run DBT locally, which will execute the DAG on Snowflake:
+You may wish to run DBT locally, which will execute the DAG on Snowflake directly:
 ```bash
 uv sync --extra dev
 source ./.venv/bin/activate
